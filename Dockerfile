@@ -9,7 +9,7 @@ COPY . .
 ENV PORT=5001
 
 # Install system dependencies
-RUN apt-get install -y swig libpulse-dev
+#RUN apt-get install -y swig libpulse-dev
 
 # install environment dependencies
 RUN pip3 install --upgrade pip 
