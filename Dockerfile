@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         && \
     apt-get clean && \
-    apt-get install build-essential swig git libpulse-dev && \
+    apt-get install -y swig libpulse-dev && \
     rm -rf /var/lib/apt/lists/*
 
 
