@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/speechToText')
 def hello():
-    path = 'Welcome.mp3'
+    path = 'files/Welcome.mp3'
     full_text = get_large_audio_transcription(path)
     return jsonify({"text":full_text})
 
