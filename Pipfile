@@ -7,6 +7,8 @@ name = "pypi"
 speechrecognition = "*"
 pydub = "*"
 pocketsphinx = "*"
+flask = "*"
+gunicorn = "*"
 
 [dev-packages]
 
