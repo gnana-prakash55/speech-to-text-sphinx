@@ -6,9 +6,9 @@ name = "pypi"
 [packages]
 speechrecognition = "*"
 pydub = "*"
-pocketsphinx = "*"
 flask = "*"
 gunicorn = "*"
+requests = "*"
 
 [dev-packages]
 
