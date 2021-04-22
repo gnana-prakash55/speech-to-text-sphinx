@@ -1,12 +1,14 @@
-from flask import Flask,jsonify,request
+from flask import Flask,jsonify,request,render_template
 from utils.speechToText import get_large_audio_transcription
 from utils.base64Tomp3 import base64Tomp3
+from flask_socketio import SocketIO
 import os
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 
-@app.route('/speechToText',methods=['POST'])
+@app.route('/speechToText',methods=['GET','POST'])
 def decoding_mp3():
     if request.method == 'POST':
         encoded_string = request.json['base64']
@@ -14,9 +16,11 @@ def decoding_mp3():
         decode_string = base64Tomp3(encoded_string)
         mp3_file.write(decode_string)
         path = 'files/temp.mp3'
-        full_text = get_large_audio_transcription(path)
+        full_text = get_large_audio_transcription(path,socketio)
         return jsonify({"text":full_text})
-    return jsonify({"error":"Something went wrong"})
+    return render_template('index.html')
+
+
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0',port=5001,debug=False)
+    socketio.run(app,host='localhost',port=5001,debug=True)

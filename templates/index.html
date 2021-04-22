@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeechToText</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <ul id="list"></ul>
+    <form action="" method="POST">
+        <input type="text" class="username" placeholder="User Name"/>
+        <input type="text" class="message" placeholder="Messages"/>
+        <input id="btn" type="submit"/>
+  </form>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port,{autoConnect:false});
+        var list = document.getElementById('list')
+        var btn = document.getElementById('btn')
+        console.log(socket)
+        btn.addEventListener('click',(e)=> {
+            e.preventDefault()
+            socket.connect()
+            socket.on('speech',(msg) => {
+                console.log(msg)
+                if (typeof msg !== 'undefined'){
+                    var item = document.createElement('li');
+                    item.textContent = msg;
+                    list.appendChild(item);
+                    window.scrollTo(0, document.body.scrollHeight);
+                }
+            })
+            console.log(socket)
+        })
+    </script>
+    
+</body>
+</html>

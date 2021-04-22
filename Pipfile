@@ -9,6 +9,9 @@ pydub = "*"
 flask = "*"
 gunicorn = "*"
 requests = "*"
+flask-socketio = "*"
+gevent = "*"
+gevent-websocket = "*"
 
 [dev-packages]
 

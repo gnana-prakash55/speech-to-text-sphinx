@@ -2,13 +2,14 @@ import speech_recognition as sr
 import os
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
+from flask_socketio import emit
 
 
 
 r = sr.Recognizer()
 
 
-def get_large_audio_transcription(path):
+def get_large_audio_transcription(path,socketio):
     sound = AudioSegment.from_file(path)
     chunks = split_on_silence(sound,
         min_silence_len = 500,
@@ -30,6 +31,8 @@ def get_large_audio_transcription(path):
                 print("Error:", str(e))
             else:
                 text = f"{text.capitalize()}. "
+                socketio.emit('speech',text)
+                socketio.sleep(0.5)
                 print(chunk_filename, ":", text)
                 whole_text += text
     return whole_text
